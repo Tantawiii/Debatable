@@ -3728,7 +3728,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 92977501}
         m_TargetAssemblyTypeName: UI_MainMenu, Assembly-CSharp
-        m_MethodName: ToggleCredits
+        m_MethodName: OnQuitPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5673,7 +5673,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 92977501}
         m_TargetAssemblyTypeName: UI_MainMenu, Assembly-CSharp
-        m_MethodName: LoadGame
+        m_MethodName: OnOptionsPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6534,7 +6534,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 92977501}
         m_TargetAssemblyTypeName: UI_MainMenu, Assembly-CSharp
-        m_MethodName: ToggleSettings
+        m_MethodName: OnCreditsPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -6667,7 +6667,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 92977501}
         m_TargetAssemblyTypeName: UI_MainMenu, Assembly-CSharp
-        m_MethodName: QuitGame
+        m_MethodName: OnStartPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
