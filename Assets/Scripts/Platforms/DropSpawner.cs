@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Pool;
 
 public class DropSpawner : MonoBehaviour
 {
@@ -9,8 +10,42 @@ public class DropSpawner : MonoBehaviour
     [Header("Drop")]
     [SerializeField] private GameObject dropPrefab;
 
+    [Header("Pool")]
+    [SerializeField] private int defaultCapacity = 5;
+    [SerializeField] private int maxSize = 20;
+
     [Header("Timing")]
     [SerializeField] private float spawnInterval = 2f;
+
+    private IObjectPool<GameObject> dropPool;
+
+    private void Awake()
+    {
+        dropPool = new ObjectPool<GameObject>(
+            createFunc: CreateDrop,
+            actionOnGet: obj =>
+            {
+                obj.SetActive(true);
+
+                if (obj.TryGetComponent<Rigidbody>(out var rb))
+                {
+                    rb.linearVelocity = Vector3.zero;
+                    rb.angularVelocity = Vector3.zero;
+                }
+            },
+            actionOnRelease: obj => obj.SetActive(false),
+            actionOnDestroy: Destroy,
+            defaultCapacity: defaultCapacity,
+            maxSize: maxSize
+        );
+    }
+
+    private GameObject CreateDrop()
+    {
+        GameObject instance = Instantiate(dropPrefab);
+        instance.GetComponent<Drop>().Pool = dropPool;
+        return instance;
+    }
 
     private void Start()
     {
@@ -30,7 +65,8 @@ public class DropSpawner : MonoBehaviour
     private void SpawnDrop()
     {
         Transform spawnPoint = pipeSpawnPoints[Random.Range(0, pipeSpawnPoints.Length)];
+        GameObject drop = dropPool.Get();
 
-        Instantiate(dropPrefab, spawnPoint.position, spawnPoint.rotation);
+        drop.transform.SetPositionAndRotation(spawnPoint.position, spawnPoint.rotation);
     }
 }

@@ -51164,6 +51164,8 @@ MonoBehaviour:
   - {fileID: 58473982}
   - {fileID: 1255752568}
   dropPrefab: {fileID: 7573799883724157605, guid: 25dd340f39e6d434a99facdd25141e1e, type: 3}
+  defaultCapacity: 10
+  maxSize: 20
   spawnInterval: 2
 --- !u!1001 &1776684922
 PrefabInstance:

@@ -34140,3 +34140,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71ff4575d7468714194d006a2f6dba02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Drop
+  disableY: -5
