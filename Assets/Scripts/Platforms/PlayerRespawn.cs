@@ -24,7 +24,7 @@ public class PlayerRespawn : MonoBehaviour
         }
     }
 
-    private void Respawn()
+    public void Respawn()
     {
         // Disable the CharacterController briefly — it blocks direct
         // transform teleportation otherwise (it controls its own position).
