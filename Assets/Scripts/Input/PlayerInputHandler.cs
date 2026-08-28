@@ -24,6 +24,12 @@ public class PlayerInputHandler : MonoBehaviour
     private void Awake()
     {
         controls = new PlayerControls();
+
+        if (PlayerPrefs.HasKey("rebinds"))
+        {
+            string json = PlayerPrefs.GetString("rebinds");
+            controls.asset.LoadBindingOverridesFromJson(json);
+        }
     }
 
     private void OnEnable()
