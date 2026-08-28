@@ -111,11 +111,7 @@ public class PlayerMovement : MonoBehaviour
         {
             currentPlatform = platform;
         }
-    }
 
-    // CharacterController does not push dynamic Rigidbodies on its own.
-    private void OnControllerColliderHit(ControllerColliderHit hit)
-    {
         Rigidbody body = hit.collider.attachedRigidbody;
         if (body == null || body.isKinematic) return;
         if ((pushLayers.value & (1 << hit.gameObject.layer)) == 0) return;
