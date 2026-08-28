@@ -34,8 +34,14 @@ public class RebindButtonUI : MonoBehaviour
         LoadSavedOverrides();
         ResolveBindingIndex();
         UpdateBindingText();
+        MoveKeyRandomizer.OnBindingsChanged += UpdateBindingText;
     }
-        
+
+    private void OnDisable() 
+    {
+        MoveKeyRandomizer.OnBindingsChanged -= UpdateBindingText;
+    }
+
     private void LoadSavedOverrides()
     {
         if (PlayerPrefs.HasKey("rebinds"))

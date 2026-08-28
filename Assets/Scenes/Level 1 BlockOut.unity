@@ -12971,6 +12971,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerRespawn
   player: {fileID: 299159730}
   spawnPoint: {fileID: 1992976344}
+  moveActionReference: {fileID: -3142348406529373287, guid: 003f6f6650204974aa101d4a7c846eeb, type: 3}
   fallThresholdY: 0.3
 --- !u!43 &307037176
 Mesh:
