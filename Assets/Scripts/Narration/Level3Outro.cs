@@ -35,6 +35,7 @@ public class Level3Outro : MonoBehaviour
         }
         yield return new WaitForSecondsRealtime(Mathf.Max(0f, endPause));
 
+        GameProgress.FirstRunDone = true;   // a whole playthrough is done — no more scramble / first-run lines
         if (LevelStreamer.Instance != null) LevelStreamer.Instance.ReturnToMenu();
     }
 }

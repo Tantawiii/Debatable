@@ -33,8 +33,9 @@ public class PlayerInputHandler : MonoBehaviour
             controls.asset.LoadBindingOverridesFromJson(json);
         }
 
-        // First playthrough gag: reverse forward/backward until the tutorial is finished.
-        if (!GameProgress.TutorialComplete)
+        // First playthrough gag: reverse forward/backward. Same condition the narrator lines use
+        // (GameProgress.IsFirstRun); lifted mid-run by UnscrambleControls() at the end of Level 1.
+        if (GameProgress.IsFirstRun)
             ScrambleForwardBack();
     }
 

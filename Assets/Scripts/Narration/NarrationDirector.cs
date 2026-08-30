@@ -34,11 +34,19 @@ public class NarrationDirector : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         if (source == null) source = GetComponent<AudioSource>();
         if (source != null) { source.playOnAwake = false; source.loop = false; source.spatialBlend = 0f; }
+        AudioBuses.Changed += ApplyVolume;
+        ApplyVolume();
     }
 
     private void OnDestroy()
     {
+        AudioBuses.Changed -= ApplyVolume;
         if (Instance == this) Instance = null;
+    }
+
+    private void ApplyVolume()
+    {
+        if (source != null) source.volume = AudioBuses.VoiceVolume;   // Master only — the Music bus never touches the narrator
     }
 
     /// <summary>
@@ -98,6 +106,7 @@ public class NarrationDirector : MonoBehaviour
             {
                 source.Stop();
                 source.clip = line.clip;
+                ApplyVolume();
                 source.Play();
                 wait = line.clip.length;
             }

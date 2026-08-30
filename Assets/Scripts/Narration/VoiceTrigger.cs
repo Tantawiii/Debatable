@@ -11,7 +11,7 @@ public class VoiceTrigger : MonoBehaviour
     [SerializeField] private NarrationLine[] lines;
     [Tooltip("Fire once then disable the collider. Off = re-fires on every entry.")]
     [SerializeField] private bool once = true;
-    [Tooltip("Only fire while the tutorial is still unfinished (GameProgress.TutorialComplete == false).")]
+    [Tooltip("Only fire during the player's first playthrough (GameProgress.IsFirstRun).")]
     [SerializeField] private bool firstRunOnly = false;
     [Tooltip("Higher priority barges in over a lower-priority line already playing.")]
     [SerializeField] private int priority = 0;
@@ -26,7 +26,7 @@ public class VoiceTrigger : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if ((_fired && once) || !PersistentPlayer.IsPlayerCollider(other)) return;
-        if (firstRunOnly && GameProgress.TutorialComplete) return;
+        if (firstRunOnly && !GameProgress.IsFirstRun) return;
         if (once)
         {
             _fired = true;
