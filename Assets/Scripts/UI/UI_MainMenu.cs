@@ -10,7 +10,12 @@ public class UI_MainMenu : UI
     public void LoadGame()
     {
         GameProgress.HasReachedLevel1 = true;
-        LoadScene("Level 1 BlockOut");
+
+        // Level 1 is already loaded underneath this menu — just fade the menu out and reveal it.
+        if (LevelStreamer.Instance != null)
+            LevelStreamer.Instance.RevealFirstLevel();
+        else
+            LoadScene(SceneNames.Bootstrap);   // launched straight into the menu with no streamer: go through the front door
     }
 
     public void OnStartPressed()     // Start_BTN

@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 
 /// <summary>
 /// Reads raw input from the New Input System and exposes it.
-/// No gameplay logic lives here — this is a pure input layer.
+/// No gameplay logic lives here ï¿½ this is a pure input layer.
 /// </summary>
 public class PlayerInputHandler : MonoBehaviour
 {
@@ -21,6 +21,8 @@ public class PlayerInputHandler : MonoBehaviour
     public event Action ReloadPressed;
     public event Action InteractPressed;
 
+    private bool _scrambled;
+
     private void Awake()
     {
         controls = new PlayerControls();
@@ -30,6 +32,31 @@ public class PlayerInputHandler : MonoBehaviour
             string json = PlayerPrefs.GetString("rebinds");
             controls.asset.LoadBindingOverridesFromJson(json);
         }
+
+        // First playthrough gag: reverse forward/backward until the tutorial is finished.
+        if (!GameProgress.TutorialComplete)
+            ScrambleForwardBack();
+    }
+
+    /// <summary>Swap the Move composite's up/down (W/S) bindings. Not persisted â€” session-only.</summary>
+    private void ScrambleForwardBack()
+    {
+        var move = controls.Player.Move;   // 2DVector composite: [0]=header, [1]=up, [2]=down, [3]=left, [4]=right
+        string up = move.bindings[1].effectivePath;
+        string down = move.bindings[2].effectivePath;
+        move.ApplyBindingOverride(1, down);
+        move.ApplyBindingOverride(2, up);
+        _scrambled = true;
+    }
+
+    /// <summary>Undo the first-run scramble and restore the player's real saved bindings.</summary>
+    public void UnscrambleControls()
+    {
+        if (!_scrambled) return;
+        _scrambled = false;
+        controls.asset.RemoveAllBindingOverrides();
+        if (PlayerPrefs.HasKey("rebinds"))
+            controls.asset.LoadBindingOverridesFromJson(PlayerPrefs.GetString("rebinds"));
     }
 
     private void OnEnable()

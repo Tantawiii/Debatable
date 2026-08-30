@@ -49,6 +49,16 @@ public class PlayerMovement : MonoBehaviour
         jumpBufferTimer = jumpBufferTime;
     }
 
+    /// <summary>Zero all carried motion — call after a teleport/respawn so old velocity doesn't bleed in.</summary>
+    public void ResetMotion()
+    {
+        verticalVelocity = Vector3.zero;
+        jumpQueued = false;
+        coyoteTimer = 0f;
+        jumpBufferTimer = 0f;
+        currentPlatform = null;
+    }
+
     private void Update()
     {
         bool grounded = controller.isGrounded;

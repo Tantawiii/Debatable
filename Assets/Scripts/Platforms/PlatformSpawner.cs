@@ -1,7 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
+using UnityEngine.SceneManagement;
 
 public class PlatformSpawner : MonoBehaviour
 {
@@ -27,8 +27,13 @@ public class PlatformSpawner : MonoBehaviour
     private IObjectPool<GameObject> platformWithLightPool;
     private int lastSpawnIndex = -1;
 
+    private Scene _homeScene;
+    private Coroutine _spawnRoutine;
+
     private void Awake()
     {
+        _homeScene = gameObject.scene;
+
         platformPool = new ObjectPool<GameObject>(
             createFunc: () => CreatePlatform(platformPrefab, PlatformType.Normal),
             actionOnGet: obj => obj.SetActive(true),
@@ -48,16 +53,43 @@ public class PlatformSpawner : MonoBehaviour
         );
     }
 
+    private void OnEnable()  => LevelStreamer.LevelBecameCurrent += OnLevelChanged;
+    private void OnDisable()
+    {
+        LevelStreamer.LevelBecameCurrent -= OnLevelChanged;
+        StopSpawning();
+    }
+
+    private void OnDestroy()
+    {
+        StopSpawning();
+        platformPool?.Clear();
+        platformWithLightPool?.Clear();
+    }
+
+    private void OnLevelChanged(LevelInfo now)
+    {
+        // once another scene is the current level, this spawner's level is on its way out
+        if (now == null || now.Scene != _homeScene) StopSpawning();
+    }
+
+    private void StopSpawning()
+    {
+        if (_spawnRoutine != null) { StopCoroutine(_spawnRoutine); _spawnRoutine = null; }
+    }
+
     private GameObject CreatePlatform(GameObject prefab, PlatformType type)
     {
         GameObject instance = Instantiate(prefab);
+        if (_homeScene.IsValid())
+            SceneManager.MoveGameObjectToScene(instance, _homeScene);
         instance.GetComponent<PooledPlatform>().Type = type;
         return instance;
     }
 
     private void Start()
     {
-        StartCoroutine(SpawnLoop());
+        _spawnRoutine = StartCoroutine(SpawnLoop());
     }
 
     private IEnumerator SpawnLoop()
@@ -91,8 +123,13 @@ public class PlatformSpawner : MonoBehaviour
 
     private void SpawnPlatform(Transform spawnPoint)
     {
+        if (!_homeScene.isLoaded) return;
+
         bool useNormal = Random.Range(0, platformWeight + platformWithLightWeight) < platformWeight;
         GameObject platform = useNormal ? platformPool.Get() : platformWithLightPool.Get();
+
+        if (_homeScene.IsValid() && platform.scene != _homeScene)
+            SceneManager.MoveGameObjectToScene(platform, _homeScene);
 
         platform.transform.SetPositionAndRotation(spawnPoint.position, spawnPoint.rotation);
         platform.GetComponent<PlatformMover>().Initialize(this);

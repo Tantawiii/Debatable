@@ -1185,6 +1185,12 @@ MonoBehaviour:
   sprintSpeed: 8
   jumpHeight: 2
   gravity: -9.81
+  coyoteTime: 0.15
+  jumpBufferTime: 0.15
+  pushStrength: 2.5
+  pushLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!114 &1749837022
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1285,6 +1291,7 @@ MonoBehaviour:
   interactableMask:
     serializedVersion: 2
     m_Bits: 256
+  interactRadius: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
