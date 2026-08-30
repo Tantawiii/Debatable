@@ -21,6 +21,14 @@ public class PlayerInputHandler : MonoBehaviour
     public event Action ReloadPressed;
     public event Action InteractPressed;
 
+    /// <summary>
+    /// True while the forward/back gag is active: movement is reversed and the settings menu must
+    /// not let the player rebind their way out of it. Cleared by <see cref="UnscrambleControls"/>
+    /// when Level 1 ends. <see cref="RebindButtonUI"/> watches this to grey its buttons out.
+    /// </summary>
+    public static bool RebindLocked { get; private set; }
+    public static event Action RebindLockChanged;
+
     private bool _scrambled;
 
     private void Awake()
@@ -33,31 +41,49 @@ public class PlayerInputHandler : MonoBehaviour
             controls.asset.LoadBindingOverridesFromJson(json);
         }
 
-        // First playthrough gag: reverse forward/backward. Same condition the narrator lines use
-        // (GameProgress.IsFirstRun); lifted mid-run by UnscrambleControls() at the end of Level 1.
-        if (GameProgress.IsFirstRun)
-            ScrambleForwardBack();
+        // The forward/back gag runs on EVERY playthrough now (first run or replay): W/S are swapped
+        // and the rebind UI is locked until UnscrambleControls() "fixes" it at the end of Level 1.
+        ScrambleForwardBack();
     }
 
-    /// <summary>Swap the Move composite's up/down (W/S) bindings. Not persisted — session-only.</summary>
-    private void ScrambleForwardBack()
+    /// <summary>
+    /// Swap the Move composite's up/down (W/S) bindings and lock the rebind UI. Not persisted �
+    /// session-only. Idempotent: a second call while already scrambled does nothing (so the
+    /// LevelStreamer can safely re-arm it at the start of each run).
+    /// </summary>
+    public void ScrambleForwardBack()
     {
+        if (_scrambled) return;
+
         var move = controls.Player.Move;   // 2DVector composite: [0]=header, [1]=up, [2]=down, [3]=left, [4]=right
         string up = move.bindings[1].effectivePath;
         string down = move.bindings[2].effectivePath;
         move.ApplyBindingOverride(1, down);
         move.ApplyBindingOverride(2, up);
         _scrambled = true;
+        SetRebindLocked(true);
     }
 
-    /// <summary>Undo the first-run scramble and restore the player's real saved bindings.</summary>
+    /// <summary>
+    /// End-of-Level-1 fix: forward/back are put back to W/S no matter what, and the settings menu
+    /// unlocks so the player can rebind again.
+    /// </summary>
     public void UnscrambleControls()
     {
         if (!_scrambled) return;
         _scrambled = false;
-        controls.asset.RemoveAllBindingOverrides();
-        if (PlayerPrefs.HasKey("rebinds"))
-            controls.asset.LoadBindingOverridesFromJson(PlayerPrefs.GetString("rebinds"));
+
+        var move = controls.Player.Move;
+        move.ApplyBindingOverride(1, "<Keyboard>/w");   // forward
+        move.ApplyBindingOverride(2, "<Keyboard>/s");   // backward
+        SetRebindLocked(false);
+    }
+
+    private static void SetRebindLocked(bool locked)
+    {
+        if (RebindLocked == locked) return;
+        RebindLocked = locked;
+        RebindLockChanged?.Invoke();
     }
 
     private void OnEnable()

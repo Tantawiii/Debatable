@@ -3,8 +3,9 @@ using UnityEngine.InputSystem;
 
 /// <summary>
 /// Escape-to-pause. Lives on [Systems] in the Player scene (DontDestroyOnLoad). Freezes the game
-/// (Time.timeScale = 0), shows the pause-menu Canvas, and frees the cursor. Locked during the
-/// first playthrough (GameProgress.TutorialComplete == false) — no pausing out of the tutorial.
+/// (Time.timeScale = 0), shows the pause-menu Canvas, and frees the cursor. Always available once
+/// the player is in a level — first run or replay — but the settings' control rebinds stay locked
+/// until Level 1 ends (see PlayerInputHandler.RebindLocked).
 /// </summary>
 public class PauseController : MonoBehaviour
 {
@@ -33,7 +34,6 @@ public class PauseController : MonoBehaviour
 
         if (IsPaused) { Resume(); return; }
 
-        if (!GameProgress.TutorialComplete) return;                       // locked on the first run
         if (LevelStreamer.Instance == null
             || LevelStreamer.Instance.State != StreamerState.Playing) return;
 

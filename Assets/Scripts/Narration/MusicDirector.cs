@@ -20,6 +20,8 @@ public class MusicDirector : MonoBehaviour
     [SerializeField] private float quipToSwapGap = 1.5f;
     [Tooltip("Only start the music once the player is actually in a level.")]
     [SerializeField] private bool waitForGameplay = true;
+    [Tooltip("How fast music fades in/out of the narration duck (units per second).")]
+    [SerializeField] private float duckFadeSpeed = 3f;
 
     [TextArea]
     [SerializeField] private string[] swapQuips =
@@ -35,6 +37,7 @@ public class MusicDirector : MonoBehaviour
     };
 
     private int _current = -1;
+    private float _duck = 1f;   // 1 = full, AudioBuses.MusicDuckFactor = ducked under narration
 
     private void Awake()
     {
@@ -56,7 +59,18 @@ public class MusicDirector : MonoBehaviour
 
     private void ApplyVolume()
     {
-        if (source != null) source.volume = AudioBuses.MusicVolume;
+        if (source != null) source.volume = AudioBuses.MusicVolume * _duck;
+    }
+
+    private void Update()
+    {
+        bool speaking = NarrationDirector.Instance != null && NarrationDirector.Instance.IsSpeaking;
+        float target = speaking ? AudioBuses.MusicDuckFactor : 1f;
+        if (!Mathf.Approximately(_duck, target))
+        {
+            _duck = Mathf.MoveTowards(_duck, target, duckFadeSpeed * Time.unscaledDeltaTime);
+            ApplyVolume();
+        }
     }
 
     private IEnumerator Start()

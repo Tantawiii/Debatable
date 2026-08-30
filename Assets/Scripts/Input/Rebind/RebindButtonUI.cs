@@ -35,11 +35,20 @@ public class RebindButtonUI : MonoBehaviour
         ResolveBindingIndex();
         UpdateBindingText();
         MoveKeyRandomizer.OnBindingsChanged += UpdateBindingText;
+        PlayerInputHandler.RebindLockChanged += ApplyRebindLock;
+        ApplyRebindLock();
     }
 
-    private void OnDisable() 
+    private void OnDisable()
     {
         MoveKeyRandomizer.OnBindingsChanged -= UpdateBindingText;
+        PlayerInputHandler.RebindLockChanged -= ApplyRebindLock;
+    }
+
+    /// <summary>Grey the button out while the forward/back gag has rebinding locked.</summary>
+    private void ApplyRebindLock()
+    {
+        if (rebindButton != null) rebindButton.interactable = !PlayerInputHandler.RebindLocked;
     }
 
     private void LoadSavedOverrides()
@@ -64,7 +73,7 @@ public class RebindButtonUI : MonoBehaviour
             return;
         }
 
-        // Simple (non-composite) action — its first binding is index 0
+        // Simple (non-composite) action ï¿½ its first binding is index 0
         resolvedBindingIndex = 0;
     }
 
@@ -76,6 +85,8 @@ public class RebindButtonUI : MonoBehaviour
 
     private void StartRebind()
     {
+        if (PlayerInputHandler.RebindLocked) return;   // no fixing your way out of the gag
+
         InputAction action = actionReference.action;
 
         // Store the original path BEFORE rebinding, so we can revert if it's a duplicate

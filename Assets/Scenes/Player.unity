@@ -1077,7 +1077,7 @@ MonoBehaviour:
   input: {fileID: 2070442317}
   walkSpeed: 5
   sprintSpeed: 8
-  jumpHeight: 2
+  jumpHeight: 3
   gravity: -9.81
   coyoteTime: 0.15
   jumpBufferTime: 0.15
@@ -1410,8 +1410,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a90c4e6cf57439b9754a937c101f2ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  seamSafetyTimeout: 20
+  seamSafetyTimeout: 8
   menuFadeDuration: 0.8
+  seamFallCatchDrop: 5
 --- !u!114 &5006000023
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2058,6 +2059,131 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseRoot: {fileID: 5009000000}
+--- !u!82 &5006000073
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5006000020}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &5006000074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5006000020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5f9a1c3b7d64802c8e5f3a1b9d0c642, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  source: {fileID: 5006000073}
+  tracks:
+  - {fileID: 8300000, guid: 35b54c2dba3ced841bf841275f1de6cd, type: 3}
+  - {fileID: 8300000, guid: a2d7d693c5bd64d468ed03695325ea0b, type: 3}
+  - {fileID: 8300000, guid: 8cbac8058d95288488e768ef75196b29, type: 3}
+  - {fileID: 8300000, guid: 5fc873ffc41ccb240a683d4a15c1ca70, type: 3}
+  - {fileID: 8300000, guid: 61a16b10c6b62684bb7079ecdc0a0971, type: 3}
+  - {fileID: 8300000, guid: 21f6c32c4b00ef44981ba6e89ec19ba0, type: 3}
+  - {fileID: 8300000, guid: a6283dc25cf629d43a71889557b6d376, type: 3}
+  - {fileID: 8300000, guid: ad85f533ae7966c4e8570cfe859f516b, type: 3}
+  - {fileID: 8300000, guid: 870554f85b1afe14c8bbe3d6458811e3, type: 3}
+  swapIntervalRange: {x: 30, y: 75}
+  startDelay: 4
+  quipToSwapGap: 1.5
+  waitForGameplay: 1
+  duckFadeSpeed: 3
+  swapQuips:
+  - Nah. This music is boring.
+  - Let's try something else.
+  - I don't like this song.
+  - New song. My choice.
+  - Ugh. Skip.
+  - This one's better. Probably.
+  - Wait, no. This one.
+  - Are you even listening to this?
 --- !u!1 &5009000000
 GameObject:
   m_ObjectHideFlags: 0
@@ -15241,136 +15367,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!1660057539 &9223372036854775807
-SceneRoots:
-  m_ObjectHideFlags: 0
-  m_Roots:
-  - {fileID: 5006000001}
-  - {fileID: 5006000011}
-  - {fileID: 5006000021}
---- !u!82 &5006000073
-AudioSource:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5006000020}
-  m_Enabled: 1
-  serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 0
-  m_Volume: 1
-  m_Pitch: 1
-  Loop: 1
-  Mute: 0
-  Spatialize: 0
-  SpatializePostEffects: 0
-  Priority: 128
-  DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
-  Pan2D: 0
-  rolloffMode: 0
-  BypassEffects: 0
-  BypassListenerEffects: 0
-  BypassReverbZones: 0
-  rolloffCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  panLevelCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  spreadCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  reverbZoneMixCustomCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
---- !u!114 &5006000074
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5006000020}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5f9a1c3b7d64802c8e5f3a1b9d0c642, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  source: {fileID: 5006000073}
-  tracks:
-  - {fileID: 8300000, guid: 35b54c2dba3ced841bf841275f1de6cd, type: 3}
-  - {fileID: 8300000, guid: a2d7d693c5bd64d468ed03695325ea0b, type: 3}
-  - {fileID: 8300000, guid: 8cbac8058d95288488e768ef75196b29, type: 3}
-  - {fileID: 8300000, guid: 5fc873ffc41ccb240a683d4a15c1ca70, type: 3}
-  - {fileID: 8300000, guid: 61a16b10c6b62684bb7079ecdc0a0971, type: 3}
-  - {fileID: 8300000, guid: 21f6c32c4b00ef44981ba6e89ec19ba0, type: 3}
-  - {fileID: 8300000, guid: a6283dc25cf629d43a71889557b6d376, type: 3}
-  - {fileID: 8300000, guid: ad85f533ae7966c4e8570cfe859f516b, type: 3}
-  - {fileID: 8300000, guid: 870554f85b1afe14c8bbe3d6458811e3, type: 3}
-  swapIntervalRange: {x: 30, y: 75}
-  startDelay: 4
-  quipToSwapGap: 1.5
-  waitForGameplay: 1
-  swapQuips:
-  - Nah. This music is boring.
-  - Let's try something else.
-  - I don't like this song.
-  - New song. My choice.
-  - Ugh. Skip.
-  - This one's better. Probably.
-  - Wait, no. This one.
-  - Are you even listening to this?
 --- !u!114 &5009000900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15397,3 +15393,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bus: 1
+--- !u!1660057539 &9223372036854775807
+SceneRoots:
+  m_ObjectHideFlags: 0
+  m_Roots:
+  - {fileID: 5006000001}
+  - {fileID: 5006000011}
+  - {fileID: 5006000021}

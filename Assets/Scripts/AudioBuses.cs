@@ -12,6 +12,18 @@ public static class AudioBuses
     private const string MasterKey = "vol_master";
     private const string MusicKey = "vol_music";
 
+    /// <summary>
+    /// Baseline music trim. Music is mixed at half so it sits under the narrator and SFX by
+    /// default; the Music bus/slider still scales on top of this.
+    /// </summary>
+    public const float MusicTrim = 0.5f;
+
+    /// <summary>
+    /// While the narrator is speaking, music ducks to this fraction of its normal level
+    /// (MusicTrim * MusicDuckFactor ≈ 0.1 at default slider positions) so voice lines cut through.
+    /// </summary>
+    public const float MusicDuckFactor = 0.2f;
+
     public static float Master { get; private set; }
     public static float Music { get; private set; }
 
@@ -41,6 +53,6 @@ public static class AudioBuses
     /// <summary>Narrator / voice loudness — Master only.</summary>
     public static float VoiceVolume => Master;
 
-    /// <summary>Music loudness — Master AND Music.</summary>
-    public static float MusicVolume => Master * Music;
+    /// <summary>Music loudness — Master AND Music, trimmed so music sits under voice.</summary>
+    public static float MusicVolume => Master * Music * MusicTrim;
 }

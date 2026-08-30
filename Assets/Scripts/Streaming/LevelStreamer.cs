@@ -28,6 +28,10 @@ public class LevelStreamer : MonoBehaviour
 
     [SerializeField] private float seamSafetyTimeout = 20f;
     [SerializeField] private float menuFadeDuration = 0.8f;
+    [Tooltip("While the hand-off is still awaiting the seam cross, if the player drops this far " +
+             "below the next level's entry treat it as a fall into the seam gap: warp them onto " +
+             "the entry and finish the hand-off instead of stranding them until seamSafetyTimeout.")]
+    [SerializeField] private float seamFallCatchDrop = 5f;
 
     private readonly Dictionary<string, LevelInfo> _loaded = new();
     private AsyncOperation _pendingOp;
@@ -129,9 +133,9 @@ public class LevelStreamer : MonoBehaviour
         if (State != StreamerState.Playing && State != StreamerState.Preloading) return;
         if (!Current.HasNext) return;
 
-        // Left Level 1 for the first time — the tutorial is done: stop scrambling the move keys
-        // and unlock the pause menu from here on.
-        if (from.SceneName == SceneNames.Level1 && !GameProgress.TutorialComplete)
+        // Left Level 1 — the tutorial is done: put forward/back back to W/S and unlock the
+        // settings' rebinds. Happens every run now; UnscrambleControls() no-ops if not scrambled.
+        if (from.SceneName == SceneNames.Level1)
         {
             GameProgress.TutorialComplete = true;
             if (PersistentPlayer.Instance != null && PersistentPlayer.Instance.Input != null)
@@ -187,6 +191,10 @@ public class LevelStreamer : MonoBehaviour
         {
             PersistentPlayer.Instance.SetVisible(true);
             PersistentPlayer.Instance.SetControlEnabled(true);
+            // Re-arm the forward/back gag for this run. No-op on a cold boot (PlayerInputHandler.Awake
+            // already did it); matters on an in-session replay where the rig — and its Awake — persist.
+            if (PersistentPlayer.Instance.Input != null)
+                PersistentPlayer.Instance.Input.ScrambleForwardBack();
         }
         SetSpawn(level1);
 
@@ -304,6 +312,13 @@ public class LevelStreamer : MonoBehaviour
         DisableStrayCamerasListenersAndInput(next.Scene);
         next.Reveal();
         SceneManager.SetActiveScene(next.Scene);
+
+        // Hand the respawn over to the new level NOW, the instant it is walkable — not later in
+        // SealAndUnloadRoutine. If the seam floor between the two levels isn't perfectly aligned
+        // and the player slips into the gap before reaching the seam-confirm trigger, PlayerRespawn
+        // then drops them on the new level's entry instead of back at the previous level's start.
+        SetSpawn(next);
+
         if (ScreenFader.Instance != null) ScreenFader.Instance.SetOpaque(false);
 
         // stop the previous level's spawners before anything can Instantiate into the new scene
@@ -319,12 +334,27 @@ public class LevelStreamer : MonoBehaviour
 
     private void Update()
     {
-        if (State == StreamerState.AwaitingSeamCross)
+        if (State != StreamerState.AwaitingSeamCross) return;
+
+        _seamTimer += Time.deltaTime;
+
+        // Player wedged on / dropped through the seam between the two levels before reaching the
+        // seam-confirm trigger. Put them on the new level's entry and finish the hand-off rather
+        // than leaving them stuck (with the previous level still loaded) until the safety timeout.
+        if (_nextForHandoff != null && _nextForHandoff.EntryPoint != null
+            && PersistentPlayer.Instance != null && PersistentPlayer.Instance.Player != null
+            && PersistentPlayer.Instance.Player.position.y
+               < _nextForHandoff.EntryPoint.position.y - seamFallCatchDrop)
         {
-            _seamTimer += Time.deltaTime;
-            if (_seamTimer >= seamSafetyTimeout && _nextForHandoff != null)
-                StartCoroutine(SealAndUnloadRoutine());
+            PlacePlayerAt(_nextForHandoff.EntryPoint);
+            if (PersistentCameraRig.Instance != null)
+                PersistentCameraRig.Instance.SnapAfterWarp(PersistentPlayer.Instance.LastWarpDelta);
+            StartCoroutine(SealAndUnloadRoutine());
+            return;
         }
+
+        if (_seamTimer >= seamSafetyTimeout && _nextForHandoff != null)
+            StartCoroutine(SealAndUnloadRoutine());
     }
 
     private IEnumerator SealAndUnloadRoutine()
