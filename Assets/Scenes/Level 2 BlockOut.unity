@@ -7721,7 +7721,7 @@ Transform:
   m_GameObject: {fileID: 233541281}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 10.53349, y: 26.29124, z: -147.18153}
+  m_LocalPosition: {x: 10.5, y: 29.4, z: -147}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8476,7 +8476,7 @@ Transform:
   m_GameObject: {fileID: 275492609}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.00135, y: 5.33882, z: 166.03905}
+  m_LocalPosition: {x: -0.03214018, y: 8.447578, z: 166.22058}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -10721,7 +10721,7 @@ Transform:
   m_GameObject: {fileID: 473023819}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.13, z: 0}
+  m_LocalPosition: {x: -0.03349018, y: 4.238759, z: 0.18153381}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -12940,7 +12940,7 @@ Transform:
   m_GameObject: {fileID: 580893552}
   serializedVersion: 2
   m_LocalRotation: {x: -0.6131593, y: -0.37680048, z: 0.36311308, w: -0.5917821}
-  m_LocalPosition: {x: -0.212, y: 2.343, z: 182.327}
+  m_LocalPosition: {x: -0.24549018, y: 5.451759, z: 182.50853}
   m_LocalScale: {x: 5, y: 20, z: 5}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -16595,7 +16595,7 @@ Transform:
   m_GameObject: {fileID: 798158001}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.13, z: 0}
+  m_LocalPosition: {x: -0.03349018, y: 4.238759, z: 0.18153381}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -27259,7 +27259,7 @@ Transform:
   m_GameObject: {fileID: 886510467}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.13, z: 0}
+  m_LocalPosition: {x: -0.03349018, y: 4.238759, z: 0.18153381}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -27774,7 +27774,7 @@ Transform:
   m_GameObject: {fileID: 942201957}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.13, z: 0}
+  m_LocalPosition: {x: -0.03349018, y: 4.238759, z: 0.18153381}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -30422,7 +30422,7 @@ Transform:
   m_GameObject: {fileID: 1217403015}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.13, z: 0}
+  m_LocalPosition: {x: -0.03349018, y: 4.238759, z: 0.18153381}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -31049,7 +31049,7 @@ Transform:
   m_GameObject: {fileID: 1239310854}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -63.55674, y: 5.33882, z: 233.75558}
+  m_LocalPosition: {x: -63.59023, y: 8.447578, z: 233.93712}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -43774,7 +43774,7 @@ Transform:
   m_GameObject: {fileID: 1749301930}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.21, y: 97.43, z: 109.1}
+  m_LocalPosition: {x: 2.1765099, y: 100.53876, z: 109.28153}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -52264,7 +52264,7 @@ Transform:
   m_GameObject: {fileID: 2099045830}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.13, z: 0}
+  m_LocalPosition: {x: -0.03349018, y: 4.238759, z: 0.18153381}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -56700,7 +56700,7 @@ Transform:
   m_GameObject: {fileID: 5000900000}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.13, z: 0}
+  m_LocalPosition: {x: -0.03349018, y: 4.238759, z: 0.18153381}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -66428,7 +66428,7 @@ Transform:
   m_GameObject: {fileID: 5001900000}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.13, z: 0}
+  m_LocalPosition: {x: -0.03349018, y: 4.238759, z: 0.18153381}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -93464,7 +93464,7 @@ Transform:
   m_GameObject: {fileID: 5006200000}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.03349018, y: 3.108759, z: 0.18153381}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -98209,7 +98209,7 @@ Transform:
   m_GameObject: {fileID: 5007200000}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.03349018, y: 3.108759, z: 0.18153381}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -98291,17 +98291,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lines:
   - id: l2_01_a
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: 55678048bb2495147af1cfb06f63f4ec, type: 3}
     caption: Phew! That was painful man, but you got through huh!
     gapAfter: 0.35
     captionOnlySeconds: 3.45
   - id: l2_01_b
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: a76fb0565d85787419f30825829b018d, type: 3}
     caption: Well seems we hit another crazy ride.
     gapAfter: 0.35
     captionOnlySeconds: 3.6
   - id: l2_01_c
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: c9ad3090169b29849a71b6e4d4670e13, type: 3}
     caption: This is just in this was a maze, I was informed so by Game Designer
       with ONE Exit direct. No tricks. ...Probably.
     gapAfter: 0.3
@@ -98377,7 +98377,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lines:
   - id: l2_02_a
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: 6d83e48977d8268409213534b3ac62e2, type: 3}
     caption: See? There's a sign. Very helpful. Contractive but helpful.
     gapAfter: 0.3
     captionOnlySeconds: 3.3
@@ -98452,12 +98452,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lines:
   - id: l2_03_a
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: 58beb8d9dd1d36c45b5ea55af2abf0b5, type: 3}
     caption: Well. That's not the exit.
     gapAfter: 0.35
     captionOnlySeconds: 2.9
   - id: l2_03_b
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: bce9adf95629c7942b2ee95a9121f580, type: 3}
     caption: Could be a decorative exit.
     gapAfter: 0.3
     captionOnlySeconds: 2.95
@@ -98532,17 +98532,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lines:
   - id: l2_04_a
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: eb641470026a4f846b54aad4254915e0, type: 3}
     caption: Let me ask the level designer.
     gapAfter: 0.5
     captionOnlySeconds: 3.1
   - id: l2_04_b
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: af8d210dc5682034ba6109818bdfe665, type: 3}
     caption: He says you're going the wrong way. He says left.
     gapAfter: 0.35
     captionOnlySeconds: 4.05
   - id: l2_04_c
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: e3da9c652cb11fe469f7932306ee7724, type: 3}
     caption: No. Your other left.
     gapAfter: 0.3
     captionOnlySeconds: 2.6
@@ -98617,12 +98617,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lines:
   - id: l2_05_a
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: f133b96485b77404e8471ceff715b8f5, type: 3}
     caption: Which Left, Man this is making me even go mad.
     gapAfter: 0.4
     captionOnlySeconds: 4.95
   - id: l2_05_b
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: c459ca99102caef4e967d98604331d08, type: 3}
     caption: Hopefully, we don't die of starvation here, I got my chips right here.
     gapAfter: 0.3
     captionOnlySeconds: 3.25
@@ -98697,12 +98697,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lines:
   - id: l2_06_a
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: 7adf78bda02d618469b10d0c76a9be8c, type: 3}
     caption: Why are you listening to signs?
     gapAfter: 0.4
     captionOnlySeconds: 3.15
   - id: l2_06_b
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: d7a9ef1b9401aea489c89b4d63150f37, type: 3}
     caption: ...That's a good question.
     gapAfter: 0.3
     captionOnlySeconds: 2.9
@@ -98777,12 +98777,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lines:
   - id: l2_07_a
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: d58eca02fcc63ab44bad310e14af9ea8, type: 3}
     caption: Maybe you're just getting worse at remembering where you've been.
     gapAfter: 0.35
     captionOnlySeconds: 4.85
   - id: l2_07_b
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: 2cf1dd602af175248a2107d86b730181, type: 3}
     caption: Have you considered that?
     gapAfter: 0.3
     captionOnlySeconds: 2.85
@@ -98857,17 +98857,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lines:
   - id: l2_08_a
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: 3049a3e0d293bdc4599330c8a414416c, type: 3}
     caption: You did it. You escaped the maze.
     gapAfter: 0.4
     captionOnlySeconds: 3.25
   - id: l2_08_b
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: 0e6f2150158d03940b244d8490445d3f, type: 3}
     caption: Against all odds. Mostly because I stopped helping.
     gapAfter: 0.35
     captionOnlySeconds: 4.15
   - id: l2_08_c
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: 86b31071a7da6764f9fb6990338823ed, type: 3}
     caption: You're welcome.
     gapAfter: 0.3
     captionOnlySeconds: 2.35

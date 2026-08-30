@@ -92,7 +92,6 @@ public class LevelStreamer : MonoBehaviour
     {
         State = StreamerState.LoadingFirst;
         yield return null;
-        DisableStrayCamerasAndListeners(info.Scene);
         SceneManager.SetActiveScene(info.Scene);
         info.Reveal();
         PlacePlayerAt(info.EntryPoint);
@@ -102,6 +101,9 @@ public class LevelStreamer : MonoBehaviour
             PersistentCameraRig.Instance.SnapAfterWarp(
                 PersistentPlayer.Instance != null ? PersistentPlayer.Instance.LastWarpDelta : Vector3.zero);
         }
+        // Rig camera/listener is live now — kill any others (e.g. a Bootstrap scene left open in the
+        // editor pulled us in additively and still has its own camera + listener + EventSystem).
+        NeutralizeStrayScenes();
         SetSpawn(info);
         if (PersistentPlayer.Instance != null)
         {
@@ -212,7 +214,7 @@ public class LevelStreamer : MonoBehaviour
         var level1 = ResolveLevel(SceneNames.Level1);
         if (level1 == null) { State = StreamerState.Error; yield break; }
 
-        DisableStrayCamerasAndListeners(level1.Scene);
+        DisableStrayCamerasListenersAndInput(level1.Scene);
         SceneManager.SetActiveScene(level1.Scene);
         level1.Reveal();
 
@@ -223,6 +225,9 @@ public class LevelStreamer : MonoBehaviour
             PersistentCameraRig.Instance.SnapAfterWarp(
                 PersistentPlayer.Instance != null ? PersistentPlayer.Instance.LastWarpDelta : Vector3.zero);
         }
+        // Rig camera/listener is live — drop any others still around (e.g. the Bootstrap splash
+        // scene when it lingers: editor multi-scene Play, or still mid-unload from the hand-off).
+        NeutralizeStrayScenes();
         SetSpawn(level1);
 
         // Player is frozen + hidden behind the opaque menu until "Start".
@@ -236,7 +241,7 @@ public class LevelStreamer : MonoBehaviour
             && Application.CanStreamedLevelBeLoaded(SceneNames.MainMenu))
         {
             yield return LoadAdditive(SceneNames.MainMenu, activateImmediately: true);
-            DisableStrayCamerasAndListeners(SceneManager.GetSceneByName(SceneNames.MainMenu));
+            DisableStrayCamerasListenersAndInput(SceneManager.GetSceneByName(SceneNames.MainMenu));
         }
         if (MainMenuView.Instance != null) MainMenuView.Instance.SetShown(true);
 
@@ -296,7 +301,7 @@ public class LevelStreamer : MonoBehaviour
         var next = ResolveLevel(nextName);
         if (next == null) { State = StreamerState.Error; yield break; }
 
-        DisableStrayCamerasAndListeners(next.Scene);
+        DisableStrayCamerasListenersAndInput(next.Scene);
         next.Reveal();
         SceneManager.SetActiveScene(next.Scene);
         if (ScreenFader.Instance != null) ScreenFader.Instance.SetOpaque(false);
@@ -329,15 +334,18 @@ public class LevelStreamer : MonoBehaviour
 
         var next = _nextForHandoff;
         var prev = _pendingFrom;
+        // Grab the name up front: unloading the scene destroys `prev`, and reading prev.SceneName
+        // afterwards throws MissingReferenceException.
+        string prevScene = prev != null ? prev.SceneName : null;
 
         if (next != null && next.Seal != null) next.Seal.Activate();
         if (next != null) SetSpawn(next);
 
-        if (prev != null && _loaded.ContainsKey(prev.SceneName))
+        if (prevScene != null && _loaded.ContainsKey(prevScene))
         {
-            var op = SceneManager.UnloadSceneAsync(prev.SceneName);
+            var op = SceneManager.UnloadSceneAsync(prevScene);
             while (op != null && !op.isDone) yield return null;
-            _loaded.Remove(prev.SceneName);
+            _loaded.Remove(prevScene);
         }
         yield return Resources.UnloadUnusedAssets();
 
@@ -440,7 +448,23 @@ public class LevelStreamer : MonoBehaviour
         }
     }
 
-    private static void DisableStrayCamerasAndListeners(Scene scene)
+    /// <summary>
+    /// The persistent Player scene owns the one camera, audio listener and EventSystem for the whole
+    /// session. Every other loaded scene — a level, the menu overlay, or the Bootstrap splash scene
+    /// when it lingers (editor multi-scene Play, or mid-unload during the real hand-off) — must not
+    /// bring its own, or Unity spams "There are 2 audio listeners / event systems in the scene".
+    /// </summary>
+    private static void NeutralizeStrayScenes()
+    {
+        for (int i = 0; i < SceneManager.sceneCount; i++)
+        {
+            var s = SceneManager.GetSceneAt(i);
+            if (!s.isLoaded || s.name == SceneNames.Player) continue;
+            DisableStrayCamerasListenersAndInput(s);
+        }
+    }
+
+    private static void DisableStrayCamerasListenersAndInput(Scene scene)
     {
         if (!scene.IsValid()) return;
         foreach (var root in scene.GetRootGameObjects())
@@ -456,6 +480,12 @@ public class LevelStreamer : MonoBehaviour
                 if (!al.enabled) continue;
                 Debug.LogWarning($"[LevelStreamer] Disabling stray AudioListener '{al.name}' in {scene.name}.");
                 al.enabled = false;
+            }
+            foreach (var es in root.GetComponentsInChildren<UnityEngine.EventSystems.EventSystem>(true))
+            {
+                if (!es.enabled) continue;
+                Debug.LogWarning($"[LevelStreamer] Disabling stray EventSystem '{es.name}' in {scene.name}.");
+                es.enabled = false;
             }
         }
     }

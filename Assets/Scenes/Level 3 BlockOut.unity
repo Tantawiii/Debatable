@@ -3102,18 +3102,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lines:
   - id: l3_01_0
-    clip: {fileID: 0}
-    caption: "So. This is Level Three."
+    clip: {fileID: 8300000, guid: 270d8e11b23b2244b9f93096b2cfa7df, type: 3}
+    caption: So. This is Level Three.
     gapAfter: 0.35
     captionOnlySeconds: 2.8
   - id: l3_01_1
-    clip: {fileID: 0}
-    caption: "It was going to be a whole level. We ran out of time."
+    clip: {fileID: 8300000, guid: a284bad2d557fe8488875ce50b67dd77, type: 3}
+    caption: It was going to be a whole level. We ran out of time.
     gapAfter: 0.35
     captionOnlySeconds: 4.25
   - id: l3_01_2
-    clip: {fileID: 0}
-    caption: "Picture it as your bedroom. In a future update. Hopefully."
+    clip: {fileID: 8300000, guid: a328b621abfb80248bbfcd58cc603869, type: 3}
+    caption: Picture it as your bedroom. In a future update. Hopefully.
     gapAfter: 0.3
     captionOnlySeconds: 4.5
   once: 1
@@ -3187,13 +3187,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lines:
   - id: l3_02_0
-    clip: {fileID: 0}
-    caption: "Imagination is debatable, after all."
+    clip: {fileID: 8300000, guid: 5f1e25e913510384bb31f925591fc214, type: 3}
+    caption: Imagination is debatable, after all.
     gapAfter: 0.35
     captionOnlySeconds: 3.4
   - id: l3_02_1
-    clip: {fileID: 0}
-    caption: "There's a bed over there. Probably. Use your imagination."
+    clip: {fileID: 8300000, guid: baea7f61526541e4fa2858456c3b38cf, type: 3}
+    caption: There's a bed over there. Probably. Use your imagination.
     gapAfter: 0.3
     captionOnlySeconds: 4.45
   once: 1
@@ -3267,25 +3267,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lines:
   - id: l3_out_0
-    clip: {fileID: 0}
-    caption: "Anyway. That's the game."
+    clip: {fileID: 8300000, guid: 9436ba76115a81e44b09343901dbce6a, type: 3}
+    caption: Anyway. That's the game.
     gapAfter: 0.35
     captionOnlySeconds: 2.8
   - id: l3_out_1
-    clip: {fileID: 0}
-    caption: "Thanks for playing Debatable?!"
+    clip: {fileID: 8300000, guid: 74bc8d55cd0d08840855c9ba45011d9a, type: 3}
+    caption: Thanks for playing Debatable?!
     gapAfter: 0.35
     captionOnlySeconds: 3.1
   - id: l3_out_2
-    clip: {fileID: 0}
-    caption: "If you enjoyed it... well. That's debatable."
+    clip: {fileID: 8300000, guid: 62c796b15f1b8ff4ab97ac3e4af67d90, type: 3}
+    caption: If you enjoyed it... well. That's debatable.
     gapAfter: 0.35
     captionOnlySeconds: 3.8
   - id: l3_out_3
-    clip: {fileID: 0}
-    caption: "Goodbye."
+    clip: {fileID: 8300000, guid: f1634b75e5d7b9345997285eab816122, type: 3}
+    caption: Goodbye.
     gapAfter: 0.3
-    captionOnlySeconds: 2.0
+    captionOnlySeconds: 2
   endPause: 1.2
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

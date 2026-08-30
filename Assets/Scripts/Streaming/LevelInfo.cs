@@ -40,7 +40,10 @@ public class LevelInfo : MonoBehaviour
     public LevelSeal Seal => seal;
     public SeamConfirmTrigger SeamConfirm => seamConfirm;
     public Scene Scene => gameObject.scene;
-    public string SceneName => gameObject.scene.name;
+    // Cached on Awake so it stays readable after this scene is unloaded: LevelStreamer asks a
+    // just-destroyed level for its name while tearing it down (SealAndUnloadRoutine).
+    public string SceneName => string.IsNullOrEmpty(_sceneName) ? gameObject.scene.name : _sceneName;
+    private string _sceneName;
 
     public void Reveal()
     {
@@ -67,6 +70,7 @@ public class LevelInfo : MonoBehaviour
 
     private void Awake()
     {
+        _sceneName = gameObject.scene.name;
 #if UNITY_EDITOR
         // Let designers press Play from any level scene on its own: pull in the
         // Player scene (which owns the player rig + streamer) additively.
